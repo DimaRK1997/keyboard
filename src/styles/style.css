@@ -1,0 +1,65 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.nametitle{
+    font-size: 36px;
+    font-weight: 700;
+
+}
+
+.textarea{
+    margin-bottom: 20px;
+    width: 890px;
+    height: 150px;
+}
+.keyboard{
+    margin: auto;
+    width: 900px;
+    background-color: rgb(158, 156, 156)
+    
+}
+.row{
+    display: flex;
+    flex-direction: row;
+}
+.keys{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    border: 2px solid black;
+    border-radius: 3px;
+    margin: 3px;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    background-color: rgb(219, 218, 215);
+    box-shadow: 1px 1px 1px 1px rgb(139, 155, 201);
+}
+.keys:hover{
+    background-color: blueviolet;
+    transition: 0.4s;
+    cursor: pointer;
+}
+.active{
+    background-color:royalblue;
+}
+.Backspace{
+    width: 110px;
+}
+
+.CapsLock{
+    width: 110px;
+}
+.Enter{
+    width: 110px;
+}
+.ShiftLeft, .ShiftRight{
+    width: 110px;
+}
+.Space{
+    width: 410px;
+}
