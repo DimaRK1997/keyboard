@@ -44,7 +44,7 @@
     transition: 0.4s;
     cursor: pointer;
 }
-.active{
+.active, .active2{
     background-color:royalblue;
 }
 .Backspace{

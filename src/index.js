@@ -3,17 +3,7 @@
 
 
 const body=document.querySelector('body');
-//body.classList.add('en');
-// //let keyboard=[];
-// let keyboard=['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 
-// 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', 'Del', 
-// 'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", 'Enter', 
-// 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'ArrowUp', 'Shift', 
-// 'Control', 'Meta', 'Alt', 'Space', 'Alt', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'Control'];
-// // document.onkeydown= function (e){
-// //     keyboard.push(e.key);
-// //     console.log(keyboard);
-// // }
+
 
 
 const keyboardRU = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 
@@ -35,7 +25,6 @@ const idArr = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'D
                 'CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter',
                 'ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM','Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight',
                 'ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'ControlRight'];
-
 
 body.innerHTML='<div class="container"><h2 class="nametitle">RSS Виртуальная клавиатура</h2>'+'<textarea class="textarea" id="textarea"></textarea>'+'<div class="keyboard"><div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div><div class="row"></div></div></div>';
 const row=document.querySelectorAll('.row');
@@ -94,7 +83,8 @@ keyCapsLock.addEventListener('click', function(e){
 })
 // смена языка по мышке
 const keyControlLeft=document.querySelector('.ControlLeft');
-keyControlLeft.addEventListener('click', function(e){
+
+function swapLang(){
     if(keyControlLeft.classList.contains('swap')&&keyCapsLock.classList.contains('active')){
         keyControlLeft.classList.remove('swap');
         lang('encaps', 'rucaps');
@@ -104,10 +94,19 @@ keyControlLeft.addEventListener('click', function(e){
     }else if(keyCapsLock.classList.contains('active')){
         keyControlLeft.classList.add('swap');
         lang('encaps', 'rucaps');
-    }else{
+    }else if(!keyCapsLock.classList.contains('active')){
         keyControlLeft.classList.add('swap');
         lang('en', 'ru');
     }
+}
+keyControlLeft.addEventListener('click', function(e){
+    swapLang();
+})
+window.addEventListener('keyup', (e)=>{
+    if(e.code=='ControlLeft'){
+        swapLang();   
+    }
+    
 })
 // keyCapsLock.addEventListener('keyup', function(e){
 //     if(!e.target.classList.contains('hidden')&&e.target.classList.contains('CapsLock')){
@@ -139,17 +138,7 @@ keyControlLeft.addEventListener('click', function(e){
         
 //     }
 // сМЕНА ЯЗЫКА ПО КЛАВИАТУРЕ
-window.addEventListener('keyup', (e)=>{
-    if(e.code=='ControlLeft'){
-        if(keyControlLeft.classList.contains('swap')){
-            keyControlLeft.classList.remove('swap');
-            lang('en', 'ru');
-        }else{
-            keyControlLeft.classList.add('swap');
-            lang('en', 'ru');
-        }   
-    }
-})
+
 
 //регистр по клавиатуре
 window.addEventListener('keyup', (e)=>{
@@ -227,9 +216,32 @@ function lang(en, ru){
             keys[i].innerHTML=keys[i].getAttribute(`${en}`);
         }
     }
+    
 }
 
-alert("Проверьте работу, пожалуста, попозже(не успеваю доделать), а лучше напишите мне в дискорд 1DiMaS1K#5002. Спасибо");
+window.addEventListener('keydown', (e)=>{
+    for(let i=0; i<keys.length; i++){
+        
+            if(e.code===idArr[i]){
+                keys[i].classList.add('active2');
+            }
+        
+        
+        console.log(idArr[1]);
+        console.log(e.code);
+    }
+})
+
+window.addEventListener('keyup', (e)=>{
+    for(let i=0; i<keys.length; i++){
+        if(e.code==idArr[i]){
+            keys[i].classList.remove('active2');
+        } 
+        // console.log(idArr[1]);
+        // console.log(e.code);
+    }
+})
+//alert("Проверьте работу, пожалуста, попозже(не успеваю доделать), а лучше напишите мне в дискорд 1DiMaS1K#5002. Спасибо");
 
 
 
@@ -243,32 +255,74 @@ alert("Проверьте работу, пожалуста, попозже(не 
 
 
 let text='';
+function inputText(e){
+    for(let i =0; i<keys.length; i++){
+        if(e.code==idArr[i]){
+            //keyCapsLkeys[i].classList.remove('active');
+            if(i>=0&&i<13){
+                text=text+keys[i].innerHTML;
+            }
+            if(i>14&&i<28){
+                text=text+keys[i].innerHTML;
+            }  
+            if(i>29&&i<41){
+                text=text+keys[i].innerHTML;
+            }   
+            if(i>42&&i<54){
+                text=text+keys[i].innerHTML;
+            }
+            if(i>59&&i<63){
+                text=text+keys[i].innerHTML;
+            }
+        }        
+    }
+    if(e.code=='Tab'){
+        text=text+'   ';
+    }
+    if(e.code=='Backspace'){
+        text=text.slice(0, -1);
+    }
+    // if(e.code=='Delete'){
+    //     text=text.slice(0, 1);
+    // }
+    textarea.textContent=text;    
+}
 
-// window.addEventListener('keyup', function(e){
-//     for(let i =0; i<keys.length; i++){
-//         if(e.code=='CapsLock'&&e.target.classList.contains('active')){
-//             //keyCapsLock.classList.remove('active');
-//         }else{
-//             keys[i].classList.remove('active');
-//             if(i>=0&&i<13){
-//                 textarea.textContent=textarea.textContent+keyboardEN[i];
-//             }
-//             if(i>15&&i<28){
-//                 textarea.textContent=textarea.textContent+keyboardEN[i];
-//             }  
-//             if(i>29&&i<41){
-//                 textarea.textContent=textarea.textContent+keyboardEN[i];
-//             }   
-//             if(i>42&&i<53){
-//                 textarea.textContent=textarea.textContent+keyboardEN[i];
-            
-//             }
-//         }
+window.addEventListener('keydown', function(e){
+    inputText(e);
+})
+//const keysaa=document.querySelectorAll('.keys');
+
+keys.forEach((e,n)=>{
+    e.addEventListener('click', (event) => {
+                if(n>=0&&n<13){
+                    text=text+keys[n].innerHTML;
+                }
+                if(n>14&&n<28){
+                    text=text+keys[n].innerHTML;
+                }  
+                if(n>29&&n<41){
+                    text=text+keys[n].innerHTML;
+                }   
+                if(n>42&&n<54){
+                    text=text+keys[n].innerHTML;
+                }
+                if(n>59&&n<63){
+                    text=text+keys[n].innerHTML;
+                }
+                if(n==13){
+                    text=text.slice(0, -1);
+                }
+                console.log(n)
+                textarea.textContent=text;
         
-//     }     
+    })
+})
     
-    
-// })
+
+
+
+
 
 // const span=document.querySelectorAll('span');
 // const keyCapsLock=document.querySelector('.CapsLock');
