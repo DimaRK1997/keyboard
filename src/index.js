@@ -1,4 +1,4 @@
-//import '../src/styles/style.css';
+
 
 const body = document.querySelector('body');
 
@@ -172,9 +172,6 @@ window.addEventListener('keydown', (e) => {
     if (e.code === idArr[i]) {
       keys[i].classList.add('active2');
     }
-
-    console.log(idArr[1]);
-    console.log(e.code);
   }
 });
 
@@ -401,8 +398,6 @@ window.addEventListener('keydown', (e) => {
   if (e.ctrlKey && e.altKey) {
     swapLang();
   }
-
-  console.log(e);
 });
 
 keys.forEach((e, n) => {
